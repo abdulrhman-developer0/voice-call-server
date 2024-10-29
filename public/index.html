@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Call</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Voice Call</h1>
+    <input type="number" id="cid" value="1" placeholder="Your call ID">
+    <input type="number" id="tid" placeholder="Your target ID">
+
+    <button id="cbtn">conect</button>
+    <button id="callbtn">Call</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/mecaller-client.js"></script>
+    <script>
+        const cid      = document.getElementById('cid');
+        const tid      = document.getElementById('tid');
+        const cbtn     = document.getElementById('cbtn');
+        const callbtn  = document.getElementById('callbtn');
+        let mecaller;
+
+
+        cbtn.addEventListener('click', (e) => {
+            mecaller = new Mecaller(
+                'http://localhost:5000',
+                'ttt',
+                cid.value
+            );
+        });
+
+        callbtn.addEventListener('click', async (e) => {
+            await mecaller.call(callbtn.value);
+        });
+
+    </script>
+</body>
+
+</html>
